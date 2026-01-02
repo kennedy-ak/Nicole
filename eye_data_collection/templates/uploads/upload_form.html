@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Eye Images - Eye Data Collection{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Main Content Column -->
+    <div class="col-lg-7">
+        <!-- Why This Data Matters Section -->
+        <div class="card mb-4" style="border-left: 5px solid #1e3a5f;">
+            <div class="card-body">
+                <h4 class="card-title mb-3">🎯 Why Your Data Matters</h4>
+                <p class="mb-3">
+                    <strong>Belmont Solutions</strong> is building an AI-powered cataract screening platform that detects cataracts
+                    <strong>10x cheaper</strong> than traditional methods ($1.50 vs $5-15 per screening). To make this work, we need to
+                    <strong>train and validate our AI model</strong> with real eye images from diverse smartphone cameras.
+                </p>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3 bg-light rounded h-100">
+                            <div class="h2 mb-2">🤖</div>
+                            <strong>AI Model Training</strong>
+                            <p class="small text-muted mb-0">Your eye images help train our model to detect cataracts accurately across different populations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3 bg-light rounded h-100">
+                            <div class="h2 mb-2">📱</div>
+                            <strong>Device Diversity</strong>
+                            <p class="small text-muted mb-0">Camera specs help us ensure our AI works on all smartphones, not just high-end devices</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center p-3 bg-light rounded h-100">
+                            <div class="h2 mb-2">🌍</div>
+                            <strong>Local Adaptation</strong>
+                            <p class="small text-muted mb-0">Locally trained datasets = better accuracy for African populations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">📸 Upload Your Eye Images</h3>
+            </div>
+            <div class="card-body">
+                <p class="lead">Please upload the following three images to help validate our AI model:</p>
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.left_eye_image.id_for_label }}" class="form-label">
+                            1. Left Eye Image
+                        </label>
+                        {{ form.left_eye_image }}
+                        <div class="form-text">
+                            {{ form.left_eye_image.help_text }}
+                        </div>
+                        {% if form.left_eye_image.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.left_eye_image.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.right_eye_image.id_for_label }}" class="form-label">
+                            2. Right Eye Image
+                        </label>
+                        {{ form.right_eye_image }}
+                        <div class="form-text">
+                            {{ form.right_eye_image.help_text }}
+                        </div>
+                        {% if form.right_eye_image.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.right_eye_image.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.camera_specs_image.id_for_label }}" class="form-label">
+                            3. Camera Specifications Screenshot
+                        </label>
+                        {{ form.camera_specs_image }}
+                        <div class="form-text">
+                            {{ form.camera_specs_image.help_text }}
+                        </div>
+                        {% if form.camera_specs_image.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.camera_specs_image.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            📤 Upload Images
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Column -->
+    <div class="col-lg-5">
+        <!-- Instructions Card -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">📋 Instructions for Best Results</h4>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="instructionsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <strong>Image Capture Guide</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#instructionsAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled">
+                                    <li><strong>Lighting:</strong> Use natural light. Avoid harsh shadows or direct sun.</li>
+                                    <li><strong>Distance:</strong> Hold phone 4-6 inches (10-15 cm) from your eye.</li>
+                                    <li><strong>Focus:</strong> Tap your eye on the screen to focus.</li>
+                                    <li><strong>Stability:</strong> Keep your hand steady for a clear shot.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <strong>Screenshot Guide</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#instructionsAccordion">
+                            <div class="accordion-body">
+                                Take a screenshot of your phone's camera specs. You can usually find this in:<br>
+                                <code>Settings > About Phone > Camera</code> or a similar path.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Impact Statement -->
+        <div class="card mb-4" style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white;">
+            <div class="card-body text-center">
+                <h4 class="card-title mb-3">🌟 Your Contribution Matters</h4>
+                <p>
+                    By participating, you're helping us build a tool to prevent avoidable blindness and transform lives across Africa.
+                </p>
+                <div class="row text-center mt-3">
+                    <div class="col-4">
+                        <div class="h3">🏥</div>
+                        <strong class="d-block small">Validate Accuracy</strong>
+                    </div>
+                    <div class="col-4">
+                        <div class="h3">💰</div>
+                        <strong class="d-block small">Prove Cost Savings</strong>
+                    </div>
+                    <div class="col-4">
+                        <div class="h3">🚀</div>
+                        <strong class="d-block small">Enable Scale</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Privacy & Ethics -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">🔒 Privacy & Ethics</h4>
+            </div>
+            <div class="card-body">
+                <p class="small mb-2"><strong>Data Security:</strong> All images are stored securely and used only for AI model training.</p>
+                <p class="small mb-2"><strong>Anonymity:</strong> Images are not linked to your identity.</p>
+                <p class="small mb-0"><strong>Ethics:</strong> This study follows international research ethics standards.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Belmont Solutions - AI Cataract Screening{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        .container {
+            max-width: 1140px;
+        }
+        .header-section {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 50px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header-section h1 {
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        .header-section .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .header-section .mission {
+            font-size: 1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .impact-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #1e3a5f;
+            color: white;
+            font-weight: 600;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+        .form-text {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background-color: #1e3a5f;
+            border-color: #1e3a5f;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #2d5a87;
+            border-color: #2d5a87;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+        .instruction-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .instruction-list li {
+            margin-bottom: 10px;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        .accordion-button:not(.collapsed) {
+            color: #white;
+            background-color: #2d5a87;
+        }
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(30, 58, 95, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <h1>👁️ Belmont Solutions</h1>
+            <p class="tagline">AI-Powered Cataract Screening for Africa</p>
+            <p class="mission">
+                Democratizing eye health across Africa by reducing screening costs to $1.50 and enabling scale via mobile devices.
+                Your participation helps us validate our AI model to prevent avoidable blindness.
+            </p>
+            <div class="mt-4">
+        
+                <span class="impact-badge">📱 Mobile-first & Offline</span>
+                <span class="impact-badge">🌍 Locally Trained AI</span>
+            </div>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

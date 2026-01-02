@@ -1,0 +1,91 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv
+venv/
+ENV/
+env/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+/static
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User uploads (eye images and camera specs)
+eye_data_collection/uploads/
+Upload Image of Your Left Eye*/
+Upload Image of Your Right Eye*/
+Upload Screenshot of Your Smartphone Camera Specifications*/
+
+# Analysis and data files
+*.csv
+*.json
+*.png
+*.jpg
+*.jpeg
+*.heic
+!package.json
+!package-lock.json
+
+# UV package manager
+.uv/
+uv.lock
+
+# Python cache
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
