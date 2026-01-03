@@ -54,7 +54,9 @@ Thumbs.db
 desktop.ini
 
 # User uploads (eye images and camera specs)
-eye_data_collection/uploads/
+# Note: eye_data_collection/uploads/ is the Django app, so we don't ignore it
+# Only ignore the actual uploaded files stored in media/
+media/uploads/
 Upload Image of Your Left Eye*/
 Upload Image of Your Right Eye*/
 Upload Screenshot of Your Smartphone Camera Specifications*/
