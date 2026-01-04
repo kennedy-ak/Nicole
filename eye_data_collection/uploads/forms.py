@@ -12,9 +12,16 @@ class SubmissionForm(forms.ModelForm):
     # Maximum file size: 10MB
     MAX_FILE_SIZE = 10 * 1024 * 1024
     
+    consent = forms.BooleanField(
+        label='I consent to the use of my eye images for AI model validation',
+        required=True,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        error_messages={'required': 'You must consent to submit your images.'}
+    )
+    
     class Meta:
         model = Submission
-        fields = ['left_eye_image', 'right_eye_image', 'camera_specs_image']
+        fields = ['left_eye_image', 'right_eye_image', 'camera_specs_image', 'consent']
         widgets = {
             'left_eye_image': forms.FileInput(attrs={
                 'class': 'form-control',

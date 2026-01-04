@@ -33,6 +33,12 @@ class Submission(models.Model):
         verbose_name='Camera Specifications Screenshot'
     )
     
+    # Consent field
+    consent = models.BooleanField(
+        default=False,
+        verbose_name='I consent to the use of my eye images for AI model validation'
+    )
+    
     # Metadata
     submitted_at = models.DateTimeField(auto_now_add=True, verbose_name='Submission Date')
     ip_address = models.GenericIPAddressField(null=True, blank=True, verbose_name='IP Address')

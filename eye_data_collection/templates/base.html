@@ -3,59 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Belmont Solutions - AI Cataract Screening{% endblock %}</title>
+    <title>{% block title %}Eye Data Upload{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #f8f9fa;
-            padding-top: 20px;
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 30px;
             padding-bottom: 40px;
         }
         .container {
-            max-width: 1140px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .belmont-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .belmont-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .belmont-logo i {
+            font-size: 2.5rem;
+        }
+        .belmont-subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .belmont-description {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .belmont-features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .belmont-feature {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .belmont-feature i {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+        .belmont-feature-text {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .why-data-matters {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #ffffff;
+            padding: 15px 20px;
+            margin-top: 30px;
+            border-radius: 0 8px 8px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .why-data-matters h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .why-data-matters p {
+            color: #ffffff;
+            font-size: 0.95rem;
+            margin-bottom: 0;
         }
         .header-section {
             background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
             color: white;
-            padding: 50px 30px;
+            padding: 30px 30px;
             border-radius: 12px;
             margin-bottom: 30px;
             text-align: center;
         }
         .header-section h1 {
-            margin-bottom: 15px;
+            margin-bottom: 0;
             font-weight: 700;
-            font-size: 2.2rem;
-        }
-        .header-section .tagline {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        .header-section .mission {
-            font-size: 1rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        .impact-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 0.9rem;
+            font-size: 2rem;
         }
         .card {
             border: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            border-radius: 8px;
         }
         .card-header {
             background-color: #1e3a5f;
             color: white;
             font-weight: 600;
+            border-radius: 8px 8px 0 0 !important;
         }
         .form-label {
             font-weight: 600;
@@ -70,6 +136,7 @@
             border-color: #1e3a5f;
             padding: 12px 30px;
             font-weight: 600;
+            border-radius: 6px;
         }
         .btn-primary:hover {
             background-color: #2d5a87;
@@ -91,7 +158,7 @@
             margin-bottom: 20px;
         }
         .accordion-button:not(.collapsed) {
-            color: #white;
+            color: white;
             background-color: #2d5a87;
         }
         .accordion-button:focus {
@@ -101,18 +168,32 @@
 </head>
 <body>
     <div class="container">
-        <div class="header-section">
-            <h1>👁️ Belmont Solutions</h1>
-            <p class="tagline">AI-Powered Cataract Screening for Africa</p>
-            <p class="mission">
-                Democratizing eye health across Africa by reducing screening costs to $1.50 and enabling scale via mobile devices.
-                Your participation helps us validate our AI model to prevent avoidable blindness.
-            </p>
-            <div class="mt-4">
-        
-                <span class="impact-badge">📱 Mobile-first & Offline</span>
-                <span class="impact-badge">🌍 Locally Trained AI</span>
+        <div class="belmont-header">
+            <div class="belmont-logo">
+                <i class="bi bi-eye"></i> Belmont Solutions
             </div>
+            <div class="belmont-subtitle">AI-Powered Cataract Screening for Africa</div>
+            <div class="belmont-description">
+                Democratizing eye health across Africa by reducing screening costs to $1.50 and enabling scale via mobile devices. Your participation helps us validate our AI model to prevent avoidable blindness.
+            </div>
+            <div class="belmont-features">
+                <div class="belmont-feature">
+                    <i class="bi bi-phone"></i>
+                    <span class="belmont-feature-text">Mobile-first & Offline</span>
+                </div>
+                <div class="belmont-feature">
+                    <i class="bi bi-cpu"></i>
+                    <span class="belmont-feature-text">Locally Trained AI</span>
+                </div>
+            </div>
+            <div class="why-data-matters">
+                <h3><i class="bi bi-exclamation-circle"></i> Why Your Data Matters</h3>
+                <p>Belmont Solutions is building an AI-powered cataract screening platform that detects cataracts 10x cheaper than traditional methods.</p>
+            </div>
+        </div>
+        
+        <div class="header-section">
+            <h1>Eye Data Upload</h1>
         </div>
         
         {% if messages %}
@@ -126,7 +207,7 @@
         
         {% block content %}{% endblock %}
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
