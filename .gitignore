@@ -66,7 +66,7 @@ Upload Screenshot of Your Smartphone Camera Specifications*/
 *.json
 *.png
 *.jpg
-*.jpeg
+
 *.heic
 !package.json
 !package-lock.json
