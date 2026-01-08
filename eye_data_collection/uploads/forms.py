@@ -21,7 +21,7 @@ class SubmissionForm(forms.ModelForm):
     
     class Meta:
         model = Submission
-        fields = ['left_eye_image', 'right_eye_image', 'camera_specs_image', 'consent']
+        fields = ['left_eye_image', 'right_eye_image', 'camera_specs_image', 'camera_type', 'consent']
         widgets = {
             'left_eye_image': forms.FileInput(attrs={
                 'class': 'form-control',
@@ -35,16 +35,21 @@ class SubmissionForm(forms.ModelForm):
                 'class': 'form-control',
                 'accept': 'image/jpeg,image/png'
             }),
+            'camera_type': forms.Select(attrs={
+                'class': 'form-select'
+            }),
         }
         labels = {
             'left_eye_image': 'Upload Image of Your Left Eye (Taken with your smartphone)',
             'right_eye_image': 'Upload Image of Your Right Eye (Taken with your smartphone)',
             'camera_specs_image': 'Upload Screenshot of Your Smartphone Camera Specifications',
+            'camera_type': 'Which Camera Did You Use?',
         }
         help_texts = {
             'left_eye_image': 'Accepted formats: JPG, JPEG, PNG, HEIC. Maximum size: 10MB.',
             'right_eye_image': 'Accepted formats: JPG, JPEG, PNG, HEIC. Maximum size: 10MB.',
             'camera_specs_image': 'Accepted formats: JPG, JPEG, PNG. Maximum size: 10MB.',
+            'camera_type': 'Select the camera you used to take the eye images (front or back camera).',
         }
     
     def clean_left_eye_image(self):

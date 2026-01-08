@@ -20,7 +20,7 @@ def upload_form(request):
                 request,
                 'Your images have been successfully uploaded! Thank you for your contribution.'
             )
-            return redirect('upload_success')
+            return redirect('uploads:upload_success')
     else:
         form = SubmissionForm()
     

@@ -69,6 +69,23 @@
                         {% endif %}
                     </div>
                     
+
+                    <div class="mb-4">
+                        <label for="{{ form.camera_type.id_for_label }}" class="form-label">
+                            4. Which Camera Did You Use?
+                        </label>
+                        {{ form.camera_type }}
+                        <div class="form-text">
+                            {{ form.camera_type.help_text }}
+                        </div>
+                        {% if form.camera_type.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.camera_type.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
                     <div class="mb-4">
                         <div class="form-check">
                             {{ form.consent }}

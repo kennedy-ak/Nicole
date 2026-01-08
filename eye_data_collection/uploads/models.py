@@ -33,12 +33,26 @@ class Submission(models.Model):
         verbose_name='Camera Specifications Screenshot'
     )
     
+    # Camera type field
+    CAMERA_CHOICES = [
+        ('front', 'Front Camera'),
+        ('back', 'Back Camera'),
+    ]
+
+    camera_type = models.CharField(
+        max_length=10,
+        choices=CAMERA_CHOICES,
+        default='back',
+        verbose_name='Camera Type Used',
+        help_text='Which camera did you use to take the eye images?'
+    )
+
     # Consent field
     consent = models.BooleanField(
         default=False,
         verbose_name='I consent to the use of my eye images for AI model validation'
     )
-    
+
     # Metadata
     submitted_at = models.DateTimeField(auto_now_add=True, verbose_name='Submission Date')
     ip_address = models.GenericIPAddressField(null=True, blank=True, verbose_name='IP Address')

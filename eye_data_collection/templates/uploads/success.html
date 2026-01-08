@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You - Eye Data Collection{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card text-center">
+            <div class="card-body py-5">
+                <div class="success-icon mb-4">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+
+                <h1 class="mb-4">Thank You for Your Contribution!</h1>
+
+                <p class="lead mb-4">
+                    Your eye images have been successfully uploaded and received.
+                </p>
+
+                <div class="alert alert-success mx-auto" style="max-width: 600px;" role="alert">
+                    <h5 class="alert-heading"><i class="bi bi-heart-fill"></i> Making a Difference</h5>
+                    <p class="mb-0">
+                        Your participation helps us validate our AI model for cataract detection,
+                        contributing to affordable and accessible eye healthcare across Africa.
+                        Together, we're working to prevent avoidable blindness.
+                    </p>
+                </div>
+
+                <div class="mt-5">
+                    <h4 class="mb-3">What Happens Next?</h4>
+                    <div class="row text-start">
+                        <div class="col-md-4 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-1-circle-fill text-primary"></i> Data Review</h5>
+                                <p class="small mb-0">Our team will review and process your submitted images.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-2-circle-fill text-primary"></i> AI Training</h5>
+                                <p class="small mb-0">Your data will help train and validate our cataract detection model.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-3-circle-fill text-primary"></i> Impact</h5>
+                                <p class="small mb-0">You're helping make eye screening accessible to millions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <a href="/" class="btn btn-primary btn-lg">
+                        <i class="bi bi-arrow-left"></i> Return to Home
+                    </a>
+                </div>
+
+                <div class="mt-4">
+                    <p class="text-muted small">
+                        Questions or concerns? Contact us at <strong>support@belmontsolutions.com</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
