@@ -28,6 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# CSRF Configuration
+CSRF_TRUSTED_ORIGINS = [
+    'https://nicole.vendiyghana.space',
+    'http://127.0.0.1:8001',
+    'http://localhost:8001',
+]
+
 
 # Application definition
 
