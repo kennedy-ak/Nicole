@@ -5,7 +5,7 @@ import csv
 import json
 import zipfile
 import os
-from io import BytesIO
+from io import BytesIO, StringIO
 from .models import Submission
 
 
@@ -171,9 +171,9 @@ class SubmissionAdmin(admin.ModelAdmin):
         zip_buffer = BytesIO()
 
         with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
-            # Create CSV manifest
-            csv_buffer = BytesIO()
-            csv_writer = csv.writer(csv_buffer.io.TextIOWrapper(encoding='utf-8'))
+            # Create CSV manifest using StringIO
+            csv_buffer = StringIO()
+            csv_writer = csv.writer(csv_buffer)
 
             # Write CSV header
             header = [
@@ -227,7 +227,7 @@ class SubmissionAdmin(admin.ModelAdmin):
 
             # Add CSV manifest to ZIP
             csv_buffer.seek(0)
-            zip_file.writestr('submissions_manifest.csv', csv_buffer.read())
+            zip_file.writestr('submissions_manifest.csv', csv_buffer.getvalue().encode('utf-8'))
 
         # Prepare response
         zip_buffer.seek(0)
