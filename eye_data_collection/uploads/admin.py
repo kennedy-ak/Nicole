@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.utils import timezone
 import csv
 import json
+import zipfile
+import os
+from io import BytesIO
 from .models import Submission
 
 
@@ -42,7 +45,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     list_per_page = 25
     
     # Read-only fields
-    readonly_fields = ('submitted_at', 'ip_address')
+    readonly_fields = ('id', 'submitted_at', 'ip_address')
     
     # Fieldsets for better organization in detail view
     fieldsets = (
@@ -58,7 +61,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     )
     
     # Actions for bulk operations
-    actions = ['export_as_csv', 'export_as_json']
+    actions = ['export_as_csv', 'export_as_json', 'export_as_zip']
     
     def has_left_eye(self, obj):
         """Display whether left eye image exists"""
@@ -154,3 +157,88 @@ class SubmissionAdmin(admin.ModelAdmin):
         return response
     
     export_as_json.short_description = 'Export selected submissions as JSON'
+
+    def export_as_zip(self, request, queryset):
+        """
+        Export selected submissions as ZIP file containing all images and a CSV manifest.
+        The ZIP file structure:
+        - submissions_manifest.csv (metadata for all submissions)
+        - left_eye/ (folder with all left eye images)
+        - right_eye/ (folder with all right eye images)
+        - camera_specs/ (folder with all camera specs images)
+        """
+        # Create in-memory ZIP file
+        zip_buffer = BytesIO()
+
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            # Create CSV manifest
+            csv_buffer = BytesIO()
+            csv_writer = csv.writer(csv_buffer.io.TextIOWrapper(encoding='utf-8'))
+
+            # Write CSV header
+            header = [
+                'Submission ID',
+                'Submitted At',
+                'IP Address',
+                'Camera Type',
+                'Left Eye Image Filename',
+                'Right Eye Image Filename',
+                'Camera Specs Image Filename',
+            ]
+            csv_writer.writerow(header)
+
+            # Process each submission
+            for submission in queryset:
+                # Write CSV row
+                row = [
+                    submission.id,
+                    submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S'),
+                    submission.ip_address or '',
+                    submission.get_camera_type_display() if submission.camera_type else '',
+                    f'left_eye/submission_{submission.id}_{os.path.basename(submission.left_eye_image.name)}' if submission.left_eye_image else '',
+                    f'right_eye/submission_{submission.id}_{os.path.basename(submission.right_eye_image.name)}' if submission.right_eye_image else '',
+                    f'camera_specs/submission_{submission.id}_{os.path.basename(submission.camera_specs_image.name)}' if submission.camera_specs_image else '',
+                ]
+                csv_writer.writerow(row)
+
+                # Add left eye image to ZIP
+                if submission.left_eye_image:
+                    try:
+                        image_path = f'left_eye/submission_{submission.id}_{os.path.basename(submission.left_eye_image.name)}'
+                        zip_file.writestr(image_path, submission.left_eye_image.read())
+                    except Exception as e:
+                        pass  # Skip if file can't be read
+
+                # Add right eye image to ZIP
+                if submission.right_eye_image:
+                    try:
+                        image_path = f'right_eye/submission_{submission.id}_{os.path.basename(submission.right_eye_image.name)}'
+                        zip_file.writestr(image_path, submission.right_eye_image.read())
+                    except Exception as e:
+                        pass  # Skip if file can't be read
+
+                # Add camera specs image to ZIP
+                if submission.camera_specs_image:
+                    try:
+                        image_path = f'camera_specs/submission_{submission.id}_{os.path.basename(submission.camera_specs_image.name)}'
+                        zip_file.writestr(image_path, submission.camera_specs_image.read())
+                    except Exception as e:
+                        pass  # Skip if file can't be read
+
+            # Add CSV manifest to ZIP
+            csv_buffer.seek(0)
+            zip_file.writestr('submissions_manifest.csv', csv_buffer.read())
+
+        # Prepare response
+        zip_buffer.seek(0)
+        response = HttpResponse(zip_buffer.read(), content_type='application/zip')
+        filename = f'submissions_export_{timezone.now().strftime("%Y%m%d_%H%M%S")}.zip'
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        self.message_user(
+            request,
+            f'Successfully exported {queryset.count()} submission(s) with images as ZIP.'
+        )
+        return response
+
+    export_as_zip.short_description = 'Export selected submissions with images as ZIP'
